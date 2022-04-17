@@ -16,10 +16,10 @@ class GooglePlacesFieldServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //TODO: Make this use config files.
         $this->publishes([
-            __DIR__.'/google-places.php' => config_path('nova-google-places.php')
+            __DIR__.'/nova-google-places.php' => config_path('nova-google-places.php')
         ]);
+        $this->mergeConfigFrom(__DIR__.'/nova-google-places.php', 'nova-google-places');
 
 
         $key = config('nova-google-places.api-key');
