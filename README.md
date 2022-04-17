@@ -27,3 +27,74 @@ I honestly expect the Nova team will come out with a first-party Algolia replace
   ...
 }
 ```
+
+# Usage
+Usage is very simple right now, though I may add more features down the road.  Let's say you wanted your User model to have an optional address...
+
+First, make an appropriate migration
+```php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up()
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->json('home_address')->nullable(); //named as you like, of course.
+        });
+    }
+
+    public function down()
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('home_address');
+        });
+    }
+};
+```
+
+next make sure your User model knows how to handle it.
+```php
+namespace App\Models;
+
+protected $fillable = [
+        ...
+        'home_address',
+        ...
+];
+
+protected $casts = [
+        ...
+        'home_address' => 'json',
+        ...
+];
+```
+
+and finally, make use of it in your Nova User Resource!
+```php
+use use Mknooihuisen\GooglePlaces\GooglePlaces;
+
+class User extends Resource {
+        
+        ...
+        public function fields(NovaRequest $request) {
+                return [
+                        ...
+                        GooglePlaces::make("Home Address", 'home_address');
+                        ...
+                ];
+        }
+}
+```
+
+# Todo:
+If this winds up being a permanent package, there are a number of enhancements I want to make:
+- Currently the field only handles US addresses well, this should be customizable.
+- Localization options for non-English speakers
+- Ability to edit the field without expanding the address into it's components first.
+
+Also, there are many caases when we might want more than one address per record.  Vacation homes, business addresses, etc. One option might be graduating this to a full installable Model and Trait combo, to make adding addresses wherever needed easy.
