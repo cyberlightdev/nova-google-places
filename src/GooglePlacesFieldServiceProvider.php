@@ -23,7 +23,7 @@ class GooglePlacesFieldServiceProvider extends ServiceProvider
 
 
         $key = config('nova-google-places.api-key');
-        if($key === null) {
+        if($key === null && !app()->runningInConsole()) {
             throw new \Exception('You must provide a Google Cloud key with access to the places API to use GooglePlaces::make()');
         }
 
