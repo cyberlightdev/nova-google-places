@@ -27,6 +27,16 @@ I honestly expect the Nova team will come out with a first-party Algolia replace
   ...
 }
 ```
+Then create yourself a (free) [Google Cloud project](https://console.cloud.google.com/) and generate API Credentials.  This package uses [vue-google-autocomplete](https://www.npmjs.com/package/vue-google-autocomplete) behind the scenes, and so it shares their API dependencies.
+
+> The API's that you have to enable in your Google API Manager Dashboard are [Google Maps Geocoding API](https://developers.google.com/maps/documentation/geocoding/start), [Google Places API Web Service](https://developers.google.com/places/web-service/) and [Google Maps Javascript API](https://developers.google.com/maps/documentation/javascript/).  
+ 
+*You do need to have a card on file with google to use these APIs, but as of 04/2022, Google offers free monthly API credit that should cover most small to medium business use cases.*
+
+Then add the key to your environment file. The field's service provider will throw an exception if this is missing.
+```dotenv
+ADDRESS_AUTOCOMPLETE_API_KEY=XXXXXXXXXXXXXXXXXXXXXXXXXXX
+```
 
 ## Usage
 Usage is very simple right now, though I may add more features down the road.  Let's say you wanted your User model to have an optional address...
