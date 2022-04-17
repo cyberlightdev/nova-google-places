@@ -1,9 +1,11 @@
 {
-    "name": "mknooihuisen/google-places",
-    "description": "A Laravel Nova field.",
+    "name": "mknooihuisen/nova-google-places",
+    "description": "A Laravel Nova (4) Google Places field",
     "keywords": [
         "laravel",
-        "nova"
+        "nova",
+	"Google",
+	"Places API"
     ],
     "license": "MIT",
     "require": {
@@ -17,7 +19,7 @@
     "extra": {
         "laravel": {
             "providers": [
-              "GooglePlacesFieldServiceProvider"
+              "Mknooihuisen\\GooglePlaces\\GooglePlacesFieldServiceProvider"
             ]
         }
     },
